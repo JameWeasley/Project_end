@@ -25,13 +25,13 @@ exports.loginAuth = async (username , password) => {
        
         if (MySQL) {
             const hash_password = exports.md5(password)
-            const [ results ] = await MySQL.query("SELECT user_name , user_password FROM users_tb WHERE user_name = ? AND user_password = ?",[
+            const [ results ] = await MySQL.query("SELECT user_name , user_password , user_roles FROM users_tb WHERE user_name = ? AND user_password = ?",[
                 username,
                 hash_password
             ])
 
             if (results.length > 0) {
-                return true
+                return { roles: results[0].user_roles }
             }
         }
 

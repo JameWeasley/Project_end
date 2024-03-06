@@ -28,7 +28,17 @@ app.get("/" , async (req ,res) => {
 })
 
 app.get("/login" , async (req , res) => {
+    if (req.session?.username) {
+        return res.redirect("/")
+    }
     return res.render("login");
+})
+
+app.get("/backend" , async (req, res) => {
+    if (req.session?.roles && req.session.roles) {
+        return res.render("backend")
+    }
+    return res.redirect("/notfound")
 })
 
 app.get("/logout" , async (req ,res) => {
@@ -48,6 +58,12 @@ app.post("/loginAuth" , async (req , res) => {
 
     if (loggedin) {
         req.session.username = username
+        req.session.roles = loggedin.roles
+
+        if (req.session.roles) {
+            return res.redirect("/backend")
+        }
+
         return res.redirect("/")
     }
 
