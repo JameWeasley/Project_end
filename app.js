@@ -45,7 +45,7 @@ app.get("/logout" , async (req ,res) => {
     if (req.session?.username) {
         req.session = null
     }
-    return res.redirect("/")
+    return res.redirect("/login")
 })
 
 app.post("/loginAuth" , async (req , res) => {
