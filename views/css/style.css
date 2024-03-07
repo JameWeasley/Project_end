@@ -211,3 +211,7 @@ footer {
 .button-menu a {
     font-size: 18px;
 }
+
+.dropdown-toggle::after {
+    font-size: 18px;
+}
