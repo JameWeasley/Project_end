@@ -198,3 +198,12 @@ footer {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
+
+.button-menu {
+    background-color: #007bff !important;
+    border: #007bff !important;
+}
+
+.down-menu {
+    background-color: #007bff !important;
+}
