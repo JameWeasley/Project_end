@@ -207,3 +207,7 @@ footer {
 .down-menu {
     background-color: #007bff !important;
 }
+
+.button-menu a {
+    font-size: 18px;
+}
