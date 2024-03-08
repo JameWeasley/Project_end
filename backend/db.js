@@ -4,7 +4,7 @@ const crypto = require('crypto')
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '34972',
+    password: '',
     database: 'project',
     waitForConnections: true,
     connectionLimit: 10,
