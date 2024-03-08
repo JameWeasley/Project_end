@@ -215,3 +215,7 @@ footer {
 .dropdown-toggle::after {
     font-size: 18px;
 }
+
+.custom-ok-btn{
+    background: #198754 !important;
+}
