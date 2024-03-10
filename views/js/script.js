@@ -4,9 +4,7 @@ function add() {
         text: "กรอกชื่อผู้ใช้ที่ต้องการ",
         input: "text",
         confirmButtonText: 'ตกลง',
-        customClass: {
-            confirmButton: 'bacground: #198754;'
-          }
+        confirmButtonColor: '#198754'
     });
 }
 
