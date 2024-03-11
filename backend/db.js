@@ -4,7 +4,7 @@ const crypto = require('crypto')
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: '34972',
     database: 'project',
     waitForConnections: true,
     connectionLimit: 10,
@@ -32,6 +32,79 @@ exports.loginAuth = async (username , password) => {
 
             if (results.length > 0) {
                 return { roles: results[0].user_roles }
+            }
+        }
+
+    }catch(err) {
+        console.log(err);
+    }
+
+    return false
+}
+
+exports.getUsers = async () => {
+    const MySQL = pool.promise()
+    try {
+       
+        if (MySQL) {
+            const [ results ] = await MySQL.query("SELECT user_name FROM users_tb")
+
+            if (results.length > 0) {
+                return {data : results}
+            }
+        }
+
+    }catch(err) {
+        console.log(err);
+    }
+
+    return false
+}
+
+exports.addDetail = async (username , detail , timestart , timeend) => {
+    const MySQL = pool.promise()
+    try {
+       
+        if (MySQL) {
+            // กำหนดโซนเวลาเป็น 'Asia/Bangkok'
+            const data_timestart = timestart.split("-")
+            let time = new Date()
+            time.setFullYear(data_timestart[0], data_timestart[1] - 1, data_timestart[2])
+
+            const data_timeend = timeend.split("-")
+            let time2 = new Date()
+            time2.setFullYear(data_timeend[0], data_timeend[1] - 1, data_timeend[2])        
+
+            const [ results ] = await MySQL.query("INSERT INTO detail_tb (detail_date , detail_list , detail_owner , detail_dateline) VALUES(? , ? , ? , ?)" , [
+                time,
+                detail,
+                username,
+                time2
+            ])
+
+            // console.log(results);
+
+            // if (results.) {
+            //     return {data : results}
+            // }
+        }
+
+    }catch(err) {
+        console.log(err);
+    }
+
+    return false
+}
+
+exports.getNowDetail = async (time) => {
+    const MySQL = pool.promise()
+    try {
+       
+        if (MySQL) {
+            const [ results ] = await MySQL.query("SELECT * FROM detail_tb")
+
+            if (results && results.length > 0) {
+                results.
             }
         }
 

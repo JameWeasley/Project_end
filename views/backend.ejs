@@ -45,7 +45,7 @@
 						============================================= -->
 
 						<div class="primary-menu-trigger d-flex align-items-center">
-							<h2><a href="home.html">Vdev Admin</a></h2>
+							<h2><a href="/">Vdev Admin</a></h2>
 						</div>
 
 					</div>
@@ -63,7 +63,6 @@
 		<section id="content">
 			<div class="content-wrap">
 				<div class="container">
-					<button class="btn btn-success mb-3" onclick="add()" style="position: absolute; top: -50px; right: 15px;">เพิ่ม</button>
 					<div class="table-responsive">
 						<table id="datatable1" class="table table-bordered text-center" cellspacing="0" width="100%">
 							<thead>
@@ -72,75 +71,36 @@
 									<th>Detail</th>
 									<th style="width: 35%;">Date</th>
 									<th>Status</th>
-									<th>Remove</th>
+									<th>Handle</th>
 								</tr>
 							</thead>
 							<tbody class="align-items-center">
+								<%
+									for (i in data) {
+								%>
 								<tr>
-									<td>Tiger Nixon</td>
-									<td>
-										<input type="text" placeholder="รายละเอียดงาน" style="width: 100%; border: none;">
-									</td>
-									<td style="display: flex; justify-content: space-between;">
-										<input type="date" style="border: none;">
-										ถึง
-										<input type="date" style="border: none;">
-									</td>
-									<td><button class="btn btn-dark">รายละเอียด</button></td>
-									<td></td>
+									<form action="/addDetail" method="POST">
+										<td><%= data[i].user_name %></td>
+										<td hidden><input type="text" name="username" value="<%= data[i].user_name %>"></td>
+										<td>
+											<input type="text" placeholder="รายละเอียดงาน" style="width: 100%; border: none;" name="detail">
+										</td>
+										<td style="display: flex; justify-content: space-between;">
+											<input type="date" style="border: none;" name="timestart">
+											ถึง
+											<input type="date" style="border: none;" name="timeend">
+										</td>
+										<td><button class="btn btn-dark">รายละเอียด</button></td>
+										<td>
+	
+											<button class="btn btn-success">ส่ง</button>
+										</td>
+									</form>
 								</tr>
-								<tr>
-									<td>Tiger Nixon</td>
-									<td>
-										<input type="text" placeholder="รายละเอียดงาน" style="width: 100%; border: none;">
-									</td>
-									<td style="display: flex; justify-content: space-between;">
-										<input type="date" style="border: none;">
-										ถึง
-										<input type="date" style="border: none;">
-									</td>
-									<td><button class="btn btn-dark">รายละเอียด</button></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Tiger Nixon</td>
-									<td>
-										<input type="text" placeholder="รายละเอียดงาน" style="width: 100%; border: none;">
-									</td>
-									<td style="display: flex; justify-content: space-between;">
-										<input type="date" style="border: none;">
-										ถึง
-										<input type="date" style="border: none;">
-									</td>
-									<td><button class="btn btn-dark">รายละเอียด</button></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Tiger Nixon</td>
-									<td>
-										<input type="text" placeholder="รายละเอียดงาน" style="width: 100%; border: none;">
-									</td>
-									<td style="display: flex; justify-content: space-between;">
-										<input type="date" style="border: none;">
-										ถึง
-										<input type="date" style="border: none;">
-									</td>
-									<td><button class="btn btn-dark">รายละเอียด</button></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Tiger Nixon</td>
-									<td>
-										<input type="text" placeholder="รายละเอียดงาน" style="width: 100%; border: none;">
-									</td>
-									<td style="display: flex; justify-content: space-between; ">
-										<input type="date" style="border: none;">
-										ถึง
-										<input type="date" style="border: none;">
-									</td>
-									<td><button class="btn btn-dark">รายละเอียด</button></td>
-									<td></td>
-								</tr>
+								<%
+									}
+								%>
+								
 							</tbody>
 						</table>
 					</div>

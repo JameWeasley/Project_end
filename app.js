@@ -22,6 +22,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set("view engine" , 'ejs')
 
 app.get("/" , async (req ,res) => {
+
+    const lastTime = new Date()
+    const detail = await bk_login.getNowDetail(lastTime)
+    // if (las)
+
     return res.render("index" , {
         username: req.session?.username
     })
@@ -36,7 +41,8 @@ app.get("/login" , async (req , res) => {
 
 app.get("/backend" , async (req, res) => {
     if (req.session?.roles && req.session.roles) {
-        return res.render("backend")
+        const dataBackend = await bk_login.getUsers()
+        return res.render("backend", dataBackend)
     }
     return res.redirect("/notfound")
 })
@@ -70,6 +76,12 @@ app.post("/loginAuth" , async (req , res) => {
     return res.render("login" , {
         error: "ไม่สามารถเข้าสู่ระบบได้กรุณาตรวจสอบไอดีและพาสเวิด"
     })
+})
+
+// รับงาน
+app.post("/addDetail" , async (req , res) => {
+    const { username , detail , timestart , timeend } = req.body
+    const addDetail = await bk_login.addDetail(username , detail , timestart , timeend)
 })
 
 const port = 80
