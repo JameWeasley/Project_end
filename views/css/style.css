@@ -219,3 +219,7 @@ footer {
 .custom-ok-btn{
     background: #198754 !important;
 }
+
+#register {
+    display: none !important;
+}

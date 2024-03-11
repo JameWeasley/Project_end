@@ -33559,3 +33559,6 @@ body.dark {
   background-color: rgba(0, 0, 0, 0.2);
 }
 /*# sourceMappingURL=style.css.map */
+#register {
+  display: none;
+}
