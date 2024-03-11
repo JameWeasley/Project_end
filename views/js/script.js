@@ -8,9 +8,6 @@ function add() {
     });
 }
 
-
-
-
 function showRegister() {
     document.getElementById('register').style.display = 'block';
     document.getElementById('login').style.display = 'none';

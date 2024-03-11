@@ -81,7 +81,7 @@
         }
     };
     
-    Calendar.prototype.clickDay = function(o) {
+    Calendar.prototype.clickDay = async function(o) {
         var selected = document.getElementsByClassName("selected"),
             len = selected.length;
         if(len !== 0){
@@ -91,6 +91,23 @@
         selectedDay = new Date(year, month, o.innerHTML);
         this.drawHeader(o.innerHTML);
         this.setCookie('selected_day', 1);
+    
+        const newtime = `${selectedDay.getFullYear()}-${(selectedDay.getMonth() + 1).toString().padStart(2, '0')}-${selectedDay.getDate().toString().padStart(2 , '0')}`
+
+        const respone = await fetch(`/getDetail?time=${newtime}`, {
+            method: "GET"
+        })
+
+        if (respone.ok) {
+            const responeData = await respone.json()
+  
+            if (responeData && responeData.length > 0) {
+                document.querySelector("#detaillist").innerHTML = `${responeData[0].detail_list}`
+            }else {
+                document.querySelector("#detaillist").innerHTML = 'ยังไม่มีงานสำหรับวันนี้'
+            }
+        
+        }
         
     };
     

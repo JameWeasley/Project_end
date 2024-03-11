@@ -159,8 +159,22 @@
       <div class="title-head">
         <h3><%= (username ? username : "กรุณาเข้าสู่ระบบ") %></h3>
       </div>
-      <div class="title-body">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Esse obcaecati provident doloremque fugiat inventore praesentium.
+      <div class="title-body" id="detaillist">
+        <%
+          if (locals.detail) {
+            if (detail.length > 0) {
+
+            
+        %>
+            <%= detail[0].detail_list %>
+        <%
+            }else {
+        %>
+              ยังไม่มีงานสำหรับวันนี้
+        <%
+            }
+          }
+        %>
       </div>
     </div>
 

@@ -24,11 +24,11 @@ app.set("view engine" , 'ejs')
 app.get("/" , async (req ,res) => {
 
     const lastTime = new Date()
-    const detail = await bk_login.getNowDetail(lastTime)
-    // if (las)
+    const detail = await bk_login.getNowDetail(`${lastTime.getFullYear()}-${ (lastTime.getMonth() + 1).toString().padStart(2 , '0') }-${lastTime.getDate().toString().padStart(2,'0')}` , req.session?.username)
 
     return res.render("index" , {
-        username: req.session?.username
+        username: req.session?.username,
+        detail: detail
     })
 })
 
@@ -81,7 +81,17 @@ app.post("/loginAuth" , async (req , res) => {
 // รับงาน
 app.post("/addDetail" , async (req , res) => {
     const { username , detail , timestart , timeend } = req.body
-    const addDetail = await bk_login.addDetail(username , detail , timestart , timeend)
+    await bk_login.addDetail(username , detail , timestart , timeend)
+
+    return res.redirect("/backend")
+})
+
+app.get("/getDetail" , async (req , res) => {
+    const { time } = req.query
+    if (time) {
+        return res.send(await bk_login.getNowDetail(time , req.session?.username))
+    }
+   
 })
 
 const port = 80

@@ -82,11 +82,9 @@ exports.addDetail = async (username , detail , timestart , timeend) => {
                 time2
             ])
 
-            // console.log(results);
-
-            // if (results.) {
-            //     return {data : results}
-            // }
+            if (results && results.insertId) {
+                return true
+            }
         }
 
     }catch(err) {
@@ -96,21 +94,24 @@ exports.addDetail = async (username , detail , timestart , timeend) => {
     return false
 }
 
-exports.getNowDetail = async (time) => {
-    const MySQL = pool.promise()
-    try {
+exports.getNowDetail = async (time , username) => {
+    if (username) {
+        const MySQL = pool.promise()
+        try {
+            if (MySQL) {
+                const [ results ] = await MySQL.query(`SELECT * FROM detail_tb WHERE detail_owner = ? AND detail_date LIKE ?` ,[
+                    username,
+                    '%' + time + '%'
+                ])
        
-        if (MySQL) {
-            const [ results ] = await MySQL.query("SELECT * FROM detail_tb")
-
-            if (results && results.length > 0) {
-                results.
+                return results
             }
+    
+        }catch(err) {
+            console.log(err);
         }
-
-    }catch(err) {
-        console.log(err);
+    
+        return false
     }
-
-    return false
+   
 }
