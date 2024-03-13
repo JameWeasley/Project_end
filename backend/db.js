@@ -85,7 +85,7 @@ exports.addDetail = async (username , detail , timestart) => {
             let time = new Date()
             time.setFullYear(data_timestart[0], data_timestart[1] - 1, data_timestart[2])      
 
-            const [ results ] = await MySQL.query("INSERT INTO detail_tb (detail_date , detail_list , detail_owner) VALUES(? , ? , ? , ?)" , [
+            const [ results ] = await MySQL.query("INSERT INTO detail_tb (detail_date , detail_list , detail_owner) VALUES(? , ? , ?)" , [
                 time,
                 detail,
                 username,
