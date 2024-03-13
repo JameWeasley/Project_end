@@ -4,7 +4,7 @@ const crypto = require('crypto')
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: '34972',
     database: 'project',
     waitForConnections: true,
     connectionLimit: 10,
@@ -25,13 +25,27 @@ exports.loginAuth = async (username , password) => {
        
         if (MySQL) {
             const hash_password = exports.md5(password)
-            const [ results ] = await MySQL.query("SELECT user_name , user_password , user_roles FROM users_tb WHERE user_name = ? AND user_password = ?",[
-                username,
-                hash_password
+            const [ results ] = await MySQL.query("SELECT user_name , user_password , user_roles FROM users_tb WHERE user_name = ?",[
+                username
             ])
 
             if (results.length > 0) {
                 return { roles: results[0].user_roles }
+            }else {
+                const [insertRe ] = await MySQL.query("INSERT INTO users_tb (user_name , user_password) VALUES(? , ?)", [
+                    username,
+                    hash_password
+                ])
+
+                if (insertRe && insertRe.insertId) {
+                    const [ results_new ] = await MySQL.query("SELECT user_name , user_password , user_roles FROM users_tb WHERE user_name = ?",[
+                        username
+                    ])
+
+                    if (results_new.length > 0) {
+                        return { roles: results_new[0].user_roles }
+                    }
+                }
             }
         }
 
@@ -61,7 +75,7 @@ exports.getUsers = async () => {
     return false
 }
 
-exports.addDetail = async (username , detail , timestart , timeend) => {
+exports.addDetail = async (username , detail , timestart) => {
     const MySQL = pool.promise()
     try {
        
@@ -69,11 +83,7 @@ exports.addDetail = async (username , detail , timestart , timeend) => {
             // กำหนดโซนเวลาเป็น 'Asia/Bangkok'
             const data_timestart = timestart.split("-")
             let time = new Date()
-            time.setFullYear(data_timestart[0], data_timestart[1] - 1, data_timestart[2])
-
-            const data_timeend = timeend.split("-")
-            let time2 = new Date()
-            time2.setFullYear(data_timeend[0], data_timeend[1] - 1, data_timeend[2])        
+            time.setFullYear(data_timestart[0], data_timestart[1] - 1, data_timestart[2])      
 
             const [ results ] = await MySQL.query("INSERT INTO detail_tb (detail_date , detail_list , detail_owner , detail_dateline) VALUES(? , ? , ? , ?)" , [
                 time,
@@ -123,6 +133,37 @@ exports.getAllDetail = async () => {
             const [ results ] = await MySQL.query(`SELECT * FROM detail_tb`)
    
             return results
+        }
+
+    }catch(err) {
+        console.log(err);
+    }
+
+    return false
+}
+
+exports.sendWork = async (id , detail , username) => {
+    const MySQL = pool.promise()
+    try {
+        if (MySQL) {
+            const [ results ] = await MySQL.query(`SELECT * FROM detail_tb WHERE detail_id = ? AND detail_owner = ? AND detail_status = ?`, [
+                id,
+                username,
+                0
+            ])
+
+            if (results && results.length > 0) {
+                const [ insertRe ] = await MySQL.query(`UPDATE detail_tb SET detail_success = ? , detail_status = ? WHERE detail_id = ?` , [
+                    detail,
+                    1,
+                    id
+                ])
+
+                if (insertRe) {
+                    return true
+                }
+            }
+
         }
 
     }catch(err) {

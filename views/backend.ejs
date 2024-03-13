@@ -100,6 +100,7 @@
 							<thead>
 								<tr>
 									<th>Name</th>
+									<th>Work</th>
 									<th>Detail</th>
 									<th>Date</th>
 									<th>Status</th>
@@ -109,6 +110,11 @@
 							<tbody class="align-items-center">
 								
 								<% 
+									const datas = {
+										[0]: "กำลังทำ",
+										[1]: "เสร็จแล้ว",
+									}
+									
 									for (i in dataDetail) { 
 								%>
 									<tr>
@@ -119,10 +125,32 @@
 										<td>
 											<%= dataDetail[i].detail_list %>
 										</td>
-										<td>
-											<%= dataDetail[i].detail_dateline %>
+										<td style="word-break: break-all;">
+											<%= dataDetail[i].detail_success ?? "" %>
 										</td>
 										<td>
+											<%= dataDetail[i].detail_date %>
+										</td>
+										<td>
+											<% 
+											if (datas[dataDetail[i].detail_status] == "กำลังทำ") {
+											%>
+											<button class="btn btn-warning text-white">
+												<%=
+												datas[dataDetail[i].detail_status]
+												%>
+											</button>
+											<%
+											}else if (datas[dataDetail[i].detail_status] == "เสร็จแล้ว") {
+											%>
+											<button class="btn btn-success text-white">
+												<%=
+												datas[dataDetail[i].detail_status]
+												%>
+											</button>
+											<%
+											}
+											%>
 											
 										</td>
 									

@@ -94,6 +94,8 @@
     
         const newtime = `${selectedDay.getFullYear()}-${(selectedDay.getMonth() + 1).toString().padStart(2, '0')}-${selectedDay.getDate().toString().padStart(2 , '0')}`
 
+       
+
         const respone = await fetch(`/getDetail?time=${newtime}`, {
             method: "GET"
         })
@@ -103,6 +105,7 @@
   
             if (responeData && responeData.length > 0) {
                 document.querySelector("#detaillist").innerHTML = `${responeData[0].detail_list}`
+                document.querySelector("#timeWork").value = responeData[0].detail_id
             }else {
                 document.querySelector("#detaillist").innerHTML = 'ยังไม่มีงานสำหรับวันนี้'
             }

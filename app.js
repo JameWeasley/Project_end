@@ -99,6 +99,21 @@ app.get("/getDetail" , async (req , res) => {
    
 })
 
+// ส่งงาน
+app.post("/sendWork" , async (req , res) => {
+    if (!req.session?.username) { return res.redirect("/")}
+    const { detail , idwork } = req.body
+    if (!detail) {
+        return res.redirect("/")
+    }
+
+
+    const username = req.session?.username
+
+    await bk_login.sendWork(idwork , detail , username)
+    return res.redirect("/")
+})
+
 const port = 80
 app.listen(80 , async () => {
     console.log(`running port ${port}`);

@@ -170,7 +170,7 @@
         <%
             }else {
         %>
-              ยังไม่มีงานสำหรับวันนี้
+            ยังไม่มีงานสำหรับวันนี้
         <%
             }
           }
@@ -182,14 +182,15 @@
       <div class="title-head">
         <h3><%= (username ? username : "กรุณาเข้าสู่ระบบ") %></h3>
       </div>
-      <div class="title-body">
-        <textarea name="" id=""></textarea>
-      </div>
-      <button class="btn btn-success mt-3" type="submit">เสร็จแล้ว</button>
+      <form action="/sendWork" method="POST">
+        <div class="title-body">
+          <textarea name="detail" id=""></textarea>
+        </div>
+        <input type="text" name="idwork" id="timeWork" value='<%= (locals.detail ? (detail.length > 0 ? detail[0].detail_id : "") : "") %>' hidden>
+        <button class="btn btn-success mt-3" type="submit">เสร็จแล้ว</button>
+      </form>
     </div>
   </div>
-  
-  
   
   <footer class="mt-5">
     <div class="container pt-4">
