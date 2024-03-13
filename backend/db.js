@@ -4,7 +4,7 @@ const crypto = require('crypto')
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: '34972',
     database: 'project',
     waitForConnections: true,
     connectionLimit: 10,
@@ -50,7 +50,7 @@ exports.getUsers = async () => {
             const [ results ] = await MySQL.query("SELECT user_name FROM users_tb")
 
             if (results.length > 0) {
-                return {data : results}
+                return results
             }
         }
 
@@ -114,4 +114,20 @@ exports.getNowDetail = async (time , username) => {
         return false
     }
    
+}
+
+exports.getAllDetail = async () => {
+    const MySQL = pool.promise()
+    try {
+        if (MySQL) {
+            const [ results ] = await MySQL.query(`SELECT * FROM detail_tb`)
+   
+            return results
+        }
+
+    }catch(err) {
+        console.log(err);
+    }
+
+    return false
 }

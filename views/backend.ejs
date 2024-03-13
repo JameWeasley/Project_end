@@ -68,14 +68,14 @@
 								</tr>
 							</thead>
 							<tbody class="align-items-center">
-								<% for (i in data) { %>
+								<% for (i in dataUsers) { %>
 									<tr>
 										<form action="/addDetail" method="POST">
 											<td>
-												<%= data[i].user_name %>
+												<%= dataUsers[i].user_name %>
 											</td>
 											<td hidden><input type="text" name="username"
-													value="<%= data[i].user_name %>"></td>
+													value="<%= dataUsers[i].user_name %>"></td>
 											<td>
 												<input type="text" placeholder="รายละเอียดงาน"
 													style="width: 100%; border: none;" name="detail">
@@ -106,26 +106,29 @@
 								</tr>
 							</thead>
 							<tbody class="align-items-center">
-								<% for (i in data) { %>
+								
+								<% 
+									for (i in dataDetail) { 
+								%>
 									<tr>
-										<form action="/addDetail" method="POST">
-											<td>
-												<%= data[i].user_name %>
-											</td>
-											<td hidden><input type="text" name="username"
-													value="<%= data[i].user_name %>"></td>
-											<td>
-												<input type="text" style="width: 100%; border: none;" name="detail">
-											</td>
-											<td>
-												<input type="date" style="border: none;" name="timestart">
-											</td>
-											<td>
-
-											</td>
-										</form>
+										
+										<td>
+											<%= dataDetail[i].detail_owner %>
+										</td>
+										<td>
+											<%= dataDetail[i].detail_list %>
+										</td>
+										<td>
+											<%= dataDetail[i].detail_dateline %>
+										</td>
+										<td>
+											
+										</td>
+									
 									</tr>
-									<% } %>
+							<% 
+								} 
+							%>
 
 							</tbody>
 						</table>

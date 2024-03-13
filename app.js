@@ -41,8 +41,13 @@ app.get("/login" , async (req , res) => {
 
 app.get("/backend" , async (req, res) => {
     if (req.session?.roles && req.session.roles) {
-        const dataBackend = await bk_login.getUsers()
-        return res.render("backend", dataBackend)
+        const dataUsers = await bk_login.getUsers()
+        const dataDetail = await bk_login.getAllDetail()
+        return res.render("backend", {
+            dataUsers: dataUsers,
+            dataDetail: dataDetail
+
+        })
     }
     return res.redirect("/notfound")
 })
