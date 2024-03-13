@@ -65,6 +65,7 @@
 									<th>Detail</th>
 									<th>Date</th>
 									<th>Handle</th>
+									<th>Delete</th>
 								</tr>
 							</thead>
 							<tbody class="align-items-center">
@@ -86,9 +87,13 @@
 											<td>
 
 												<button class="btn btn-success">ส่ง</button>
-												<button class="btn btn-danger">X</button>
+												
 											</td>
 										</form>
+										<td>
+											<button class="btn btn-danger" onclick="deleteConfirm()">X</button>
+										</td>
+										
 									</tr>
 									<% } %>
 

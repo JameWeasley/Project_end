@@ -39,3 +39,22 @@ function detail() {
     });
     
 }
+
+function deleteConfirm() {
+    Swal.fire({
+        title: "ต้องการลบ ใช่ หรือ ไม่ ?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "ไม่",
+        confirmButtonText: "ใช่"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "ลบข้อมูลสำเร็จ",
+            icon: "success"
+          });
+        }
+      });
+}
