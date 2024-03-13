@@ -91,7 +91,7 @@
 											</td>
 										</form>
 										<td>
-											<button class="btn btn-danger" onclick="deleteConfirm()">X</button>
+											<button class="btn btn-danger" onclick="deleteConfirm(this , '<%= dataUsers[i].user_id %>')">X</button>
 										</td>
 										
 									</tr>
@@ -130,7 +130,7 @@
 										<td>
 											<%= dataDetail[i].detail_list %>
 										</td>
-										<td style="word-break: break-all;">
+										<td style="word-break: break-all; text-align: left;">
 											<%= dataDetail[i].detail_success ?? "" %>
 										</td>
 										<td>
@@ -140,7 +140,7 @@
 											<% 
 											if (datas[dataDetail[i].detail_status] == "กำลังทำ") {
 											%>
-											<button class="btn btn-warning text-white">
+											<button class="btn btn-warning text-white" style="white-space: nowrap;">
 												<%=
 												datas[dataDetail[i].detail_status]
 												%>
@@ -148,7 +148,7 @@
 											<%
 											}else if (datas[dataDetail[i].detail_status] == "เสร็จแล้ว") {
 											%>
-											<button class="btn btn-success text-white">
+											<button class="btn btn-success text-white" style="white-space: nowrap;">
 												<%=
 												datas[dataDetail[i].detail_status]
 												%>

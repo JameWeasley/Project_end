@@ -32,7 +32,14 @@
             </button>
             <ul class="dropdown-menu down-menu">
               <li><a class="dropdown-item" href="/logout">Log out</a></li>
-              <li><a class="dropdown-item" href="/backend">Admin</a></li>
+              <%
+                if (locals.roles == 1) {
+              %>
+                <li><a class="dropdown-item" href="/backend">Admin</a></li>
+              <%
+                }
+              %>
+            
             </ul>
           </div>
           <%

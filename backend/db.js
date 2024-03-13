@@ -4,7 +4,7 @@ const crypto = require('crypto')
 const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: '34972',
     database: 'project',
     waitForConnections: true,
     connectionLimit: 10,
@@ -61,7 +61,7 @@ exports.getUsers = async () => {
     try {
        
         if (MySQL) {
-            const [ results ] = await MySQL.query("SELECT user_name FROM users_tb")
+            const [ results ] = await MySQL.query("SELECT user_name , user_id FROM users_tb")
 
             if (results.length > 0) {
                 return results
@@ -156,6 +156,33 @@ exports.sendWork = async (id , detail , username) => {
                     detail,
                     1,
                     id
+                ])
+
+                if (insertRe) {
+                    return true
+                }
+            }
+
+        }
+
+    }catch(err) {
+        console.log(err);
+    }
+
+    return false
+}
+
+exports.deleteUsers = async (id) => {
+    const MySQL = pool.promise()
+    try {
+        if (MySQL) {
+            const [ results ] = await MySQL.query(`SELECT * FROM users_tb WHERE user_id = ?`, [
+                id,
+            ])
+
+            if (results && results.length > 0) {
+                const [ insertRe ] = await MySQL.query(`DELETE FROM users_tb WHERE user_id = ?` , [
+                    id,
                 ])
 
                 if (insertRe) {

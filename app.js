@@ -28,6 +28,7 @@ app.get("/" , async (req ,res) => {
 
     return res.render("index" , {
         username: req.session?.username,
+        roles: req.session?.roles,
         detail: detail
     })
 })
@@ -112,6 +113,17 @@ app.post("/sendWork" , async (req , res) => {
 
     await bk_login.sendWork(idwork , detail , username)
     return res.redirect("/")
+})
+
+app.delete("/deleteUsers" , async (req , res) => {
+    const { user_id } = req.query
+    console.log(user_id);
+    if (req.session?.roles && req.session.roles == 1) {
+        return res.send(await bk_login.deleteUsers(user_id))
+    }
+
+    res.send(false)
+  
 })
 
 const port = 80

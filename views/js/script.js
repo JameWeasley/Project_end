@@ -40,7 +40,8 @@ function detail() {
     
 }
 
-function deleteConfirm() {
+function deleteConfirm(e , id ) {
+  const element = e.closest("tr")
     Swal.fire({
         title: "ต้องการลบ ใช่ หรือ ไม่ ?",
         icon: "question",
@@ -49,12 +50,30 @@ function deleteConfirm() {
         cancelButtonColor: "#d33",
         cancelButtonText: "ไม่",
         confirmButtonText: "ใช่"
-      }).then((result) => {
+      }).then( async (result) => {
         if (result.isConfirmed) {
-          Swal.fire({
-            title: "ลบข้อมูลสำเร็จ",
-            icon: "success"
-          });
+
+          const respone = await fetch(`/deleteUsers?user_id=${id}` , {
+            method: "DELETE"
+          })
+
+          if (respone.ok) {
+
+            const responeData = await respone.json()
+            if (responeData) {
+              Swal.fire({
+                title: "ลบข้อมูลสำเร็จ",
+                icon: "success"
+              });
+              element.remove()
+            }else {
+              Swal.fire({
+                title: "ไม่สามารถลบได้",
+                icon: "error"
+              });
+            }
+          }
+
         }
       });
 }
