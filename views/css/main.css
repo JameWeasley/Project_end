@@ -1,0 +1,18 @@
+header {
+    color: #fff;
+    background-color: #212529;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+}
+
+
+footer {
+    background-color: #212529;
+    color: #fff;
+    height: 200px;
+    position: fixed !important;
+    width: 100%;
+    bottom: 0 !important;
+}

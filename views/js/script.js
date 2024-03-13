@@ -17,3 +17,25 @@ function showLogin() {
     document.getElementById('register').style.display = 'none';
     document.getElementById('login').style.display = 'block';
 }
+
+function detail() {
+    Swal.fire({
+        title: "Custom animation with Animate.css",
+        confirmButtonColor: "#198754",
+        showClass: {
+            popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+            popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+    });
+    
+}
